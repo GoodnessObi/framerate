@@ -11,15 +11,17 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 it('should return the correct component', function () {
     $posts = Post::factory(3)->create();
 
+
+
     get(route('posts.index'))
-        ->assertInertia(fn(AssertableInertia $inertia) => $inertia
-            ->component('Posts/Index', true)
-    );
+        ->assertHasComponent('Posts/Index');
 });
 
 it('passes posts to the view', function () {
 
     $posts = Post::factory(3)->create();
+
+    $posts->load('user');
 
     get(route('posts.index'))
         ->assertHasPaginatedResource('posts', PostResource::collection($posts->reverse()));

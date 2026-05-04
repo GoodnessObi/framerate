@@ -56,5 +56,11 @@ class TestingServiceProvider extends ServiceProvider
                 ->hasPaginatedResource($key, $resource)
             );
         });
+
+        TestResponse::macro('assertHasComponent', function(string $component) {
+            return $this->assertInertia(fn(AssertableInertia $inertia) => $inertia
+                ->component($component, true)
+            );
+        });
     }
 }
