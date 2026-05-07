@@ -25,7 +25,7 @@
                     :key="comment.id"
                     :comment="comment"
                 />
-                <Pagination :meta="comments.meta" />
+                <Pagination :meta="comments.meta" :only="['comments']" />
             </div>
         </Container>
     </AppLayout>

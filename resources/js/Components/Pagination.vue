@@ -4,11 +4,14 @@
         <div class="flex flex-1 justify-between sm:hidden">
             <component
                 :is="isNavigable(previousUrl) ? Link : 'span'"
+                :only="only"
                 v-bind="navigableBindings(previousUrl)"
                 :class="mobilePrevClass"
+
             >Previous</component>
             <component
                 :is="isNavigable(nextUrl) ? Link : 'span'"
+                :only="only"
                 v-bind="navigableBindings(nextUrl)"
                 :class="mobileNextClass"
             >Next</component>
@@ -41,6 +44,7 @@
                         :key="link.label"
                         v-bind="navigableBindings(link.url)"
                         v-html="link.label"
+                        :only="only"
                         :aria-current="link.active ? 'page' : undefined"
                         class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold"
                         :class="pageLinkClass(link)"
@@ -56,7 +60,15 @@ import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({
-    meta: Object,
+    meta: {
+        type: Object,
+        required: true,
+    },
+    only: {
+        type: Array,
+        required: false,
+        default: () => [],
+    },
 });
 
 /** Laravel uses `null` for disabled / ellipsis; `''` is not safe for Inertia `Link` either. */
