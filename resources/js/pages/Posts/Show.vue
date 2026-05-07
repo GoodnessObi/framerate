@@ -1,6 +1,5 @@
 <template>
     <AppLayout :title="post.title">
-
         <Container>
             <div class="rounded-lg bg-white p-6 shadow-sm sm:p-8">
                 <h1
@@ -19,17 +18,29 @@
                     >{{ post.body }}</pre>
                 </article>
             </div>
+            <div class="mt-8 rounded-lg bg-white p-6 shadow-sm sm:p-8">
+                <h2 class="mb-4 text-2xl font-bold tracking-tight text-gray-900">Comments</h2>
+                <Comment
+                    v-for="comment in comments.data"
+                    :key="comment.id"
+                    :comment="comment"
+                />
+                <Pagination :meta="comments.meta" />
+            </div>
         </Container>
     </AppLayout>
 </template>
 
 <script setup>
+import Comment from '@/Components/Comment.vue';
 import Container from '@/Components/Container.vue';
+import Pagination from '@/Components/Pagination.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import formatDate from '@/utililities/formatDate';
 
 
 const props = defineProps({
     post: Object,
+    comments: Object,
 });
 </script>
