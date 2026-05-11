@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
         JsonResource::withoutWrapping();
         Model::preventLazyLoading();
+        Model::unguard();
     }
 
     /**
