@@ -3,12 +3,20 @@
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use function Pest\Laravel\post;
+use function Pest\Laravel\actingAs;
+
+
+it('requires authentication', function () {
+    post(route('posts.comments.store',Post::factory()->create()))
+        ->assertRedirect(route('login'));
+});
 
 it('can store a comment', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create();
 
-    $this->actingAs($user)->post(route('posts.comments.store', $post), [
+    actingAs($user)->post(route('posts.comments.store', $post), [
         'body' => 'This is a test comment',
     ]);
 
@@ -46,3 +54,5 @@ it('requires a valid body', function ($value) {
     true,
     str_repeat('a', 2501),
 ]);
+
+
