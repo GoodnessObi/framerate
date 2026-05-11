@@ -18,7 +18,7 @@
                     >{{ post.body }}</pre>
                 </article>
             </div>
-            <Comments :comments="comments" />
+            <Comments :comments="comments" :postId="post.id" />
         </Container>
     </AppLayout>
 </template>
