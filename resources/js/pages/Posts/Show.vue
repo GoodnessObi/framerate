@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import Comments from '@/Components/Comments.vue';
+import Comments from '@/Components/Comment/Comments.vue';
 import Container from '@/Components/Container.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import formatDate from '@/utililities/formatDate';
