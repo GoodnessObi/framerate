@@ -17,15 +17,14 @@
         </div>
 
         <p class="whitespace-pre-wrap break-words text-gray-800">{{ comment.body }}</p>
-        <DangerButton class="mt-2" v-if="canDelete" @click="deleteComment">Delete</DangerButton>
+        <DangerButton class="mt-2" v-if="comment.can?.delete" @click="deleteComment">Delete</DangerButton>
     </div>
 </template>
 
 <script setup>
 import DangerButton from '@/Components/DangerButton.vue';
 import formatDate from '@/utililities/formatDate';
-import { router, usePage } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     comment: {
@@ -34,9 +33,6 @@ const props = defineProps({
     },
 });
 
-const canDelete = computed(() => {
-    return props.comment.user.id === usePage().props.auth.user?.id;
-});
 
 const getNameAcronym = (name) => {
     if (!name) {
