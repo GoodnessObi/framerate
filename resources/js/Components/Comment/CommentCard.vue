@@ -17,14 +17,15 @@
         </div>
 
         <p class="whitespace-pre-wrap break-words text-gray-800">{{ comment.body }}</p>
-        <DangerButton class="mt-2" v-if="comment.can?.delete" @click="deleteComment">Delete</DangerButton>
+        <form v-if="comment.can?.delete" class="mt-2" @submit.prevent="$emit('delete', comment.id)">
+            <DangerButton type="submit">Delete</DangerButton>
+        </form>
     </div>
 </template>
 
 <script setup>
 import DangerButton from '@/Components/DangerButton.vue';
 import formatDate from '@/utililities/formatDate';
-import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     comment: {
@@ -32,6 +33,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const emit = defineEmits(['delete']);
 
 
 const getNameAcronym = (name) => {
@@ -47,7 +50,4 @@ const getNameAcronym = (name) => {
         .join('');
 };
 
-const deleteComment = () => router.delete(route('comments.destroy', props.comment.id), {
-    preserveScroll: true,
-});
 </script>
